@@ -19,3 +19,6 @@ modelLoader/src/modelloader/__pycache__/
 
 # macOS
 .DS_Store
+
+weights/
+weights_finetuned/
