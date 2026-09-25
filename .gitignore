@@ -22,3 +22,6 @@ modelLoader/src/modelloader/__pycache__/
 
 weights/
 weights_finetuned/
+
+weights/
+weights_finetuned/
