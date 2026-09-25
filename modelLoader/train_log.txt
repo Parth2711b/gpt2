@@ -1,0 +1,26 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 11186.02it/s]
+Instruction: Give three tips for staying healthy.
+Output: 1.Eat a balanced diet and make sure to include plenty of fruits and vegetables. 
+2. Exercise regularly to keep your body active and strong. 
+3. Get enough sleep and maintain a consistent sleep schedule.
+
+Total tokens: 63
+Masked (-100) tokens: 17
+
+First few labels (prompt, should be -100): [-100, -100, -100, -100, -100]
+Last few labels (response, should be real ids): [6414, 3993, 7269, 13, 50256]
+Decoded last few labels:  consistent sleep schedule.<|endoftext|>
+
+Training on device: mps
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+epoch 0 step 0/500  loss=3.1456
+epoch 0 step 20/500  loss=3.1273
+epoch 0 step 40/500  loss=2.6928
+epoch 0 step 60/500  loss=2.2394
+epoch 0 step 80/500  loss=1.8125
+epoch 0 step 100/500  loss=2.9966
+epoch 0 step 120/500  loss=2.6176
+epoch 0 step 140/500  loss=2.1259
+epoch 0 step 160/500  loss=2.1625
+epoch 0 step 180/500  loss=2.3198

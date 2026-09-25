@@ -1,0 +1,21 @@
+# compiled binaries
+inference/gpt2
+inference/*.out
+inference/*.o
+
+# large weight files – track only tokenizer assets and vocab
+weights/*.txt
+weights/*.bin
+weights_finetuned/*.txt
+weights_finetuned/*.bin
+
+# Python env / build artifacts
+modelLoader/.venv/
+modelLoader/__pycache__/
+modelLoader/src/modelloader/__pycache__/
+*.pyc
+*.pyo
+.python-version
+
+# macOS
+.DS_Store

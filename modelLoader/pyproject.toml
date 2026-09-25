@@ -1,0 +1,20 @@
+[project]
+name = "modelloader"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Parth Bansal", email = "parth2711b@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "torch>=2.14.0",
+    "transformers>=5.17.0",
+]
+
+[project.scripts]
+modelloader = "modelloader:main"
+
+[build-system]
+requires = ["uv_build>=0.12.16,<0.13.0"]
+build-backend = "uv_build"
