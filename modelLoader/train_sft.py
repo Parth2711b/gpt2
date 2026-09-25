@@ -6,11 +6,11 @@ masking is correct before we add the actual training loop.
 
 import torch
 from torch.utils.data import DataLoader
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
+from transformers import GPT2LMHeadModel, GPT2Tokenizer, get_cosine_schedule_with_warmup
 from datasets import load_dataset
 
 MODEL_NAME = "GPT2"
-NUM_EXAMPLES = 200   # small subset for a fast first run on the M5
+NUM_EXAMPLES = 1000   # trained on a larger subset for better quality
 
 # --- load base model + tokenizer (same starting point as main.py) ---
 tokenizer = GPT2Tokenizer.from_pretrained(MODEL_NAME)
@@ -99,7 +99,7 @@ def collate_batch(batch):
 
 
 BATCH_SIZE = 4
-EPOCHS = 1
+EPOCHS = 3
 LEARNING_RATE = 5e-5
 
 device = "mps" if torch.backends.mps.is_available() else "cpu"
@@ -110,6 +110,12 @@ model.train()   # enables dropout etc. (training mode, vs eval mode for inferenc
 
 dataloader = DataLoader(processed_dataset, batch_size=BATCH_SIZE, shuffle=True, collate_fn=collate_batch)
 optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
+
+# setup learning rate scheduler
+total_steps = len(dataloader) * EPOCHS
+scheduler = get_cosine_schedule_with_warmup(
+    optimizer, num_warmup_steps=total_steps // 10, num_training_steps=total_steps
+)
 
 for epoch in range(EPOCHS):
     for step, batch in enumerate(dataloader):
@@ -123,7 +129,12 @@ for epoch in range(EPOCHS):
         loss = outputs.loss
 
         loss.backward()        # compute gradients for every weight
+
+        # clip gradients to prevent exploding gradients
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+
         optimizer.step()       # nudge every weight against its gradient
+        scheduler.step()       # update learning rate
         optimizer.zero_grad()  # clear gradients before the next batch
 
         if step % 20 == 0:
